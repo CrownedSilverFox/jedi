@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+    Padawan Add
+{% endblock %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_name">Name</label>
+            <input name="name" type="text" class="form-control" required id="id_name" placeholder="Enter Name">
+        </div>
+        <div class="form-group">
+            <label for="id_email">Email</label>
+            <input name="email" type="email" class="form-control" required id="id_email" placeholder="Enter Email">
+        </div>
+        <div class="form-group">
+            <label for="id_planet">Planet</label>
+            <input name="planet" type="text" class="form-control" required id="id_Planet" placeholder="Enter Planet">
+        </div>
+        <input type="submit" class="btn btn-primary">
+    </form>
+{% endblock %}

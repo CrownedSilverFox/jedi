@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Тест
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {% for question in test %}
+            <div class="form-group">
+                <label for="id_quest_{{ forloop.counter0 }}">
+                    {{ question.text }}
+                </label>
+                <input name="quest_{{ forloop.counter0 }}" type="text" class="form-control"
+                       required id="id_quest_{{ forloop.counter0 }}" placeholder="Answer">
+            </div>
+        {% endfor %}
+        <input type="hidden" name="testKey" required id="id_testKey" value="{{ test_key }}">
+        <input type="hidden" name="padawanEmail" required id="id_padawanEmail" value="{{ email }}">
+        <input type="submit" class="btn btn-primary">
+    </form>
+{% endblock %}

@@ -4,9 +4,12 @@ from django.db import models
 class Planet(models.Model):
     name = models.CharField(max_length=20, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Jedi(models.Model):
-    name = models.CharField(max_length=20, db_index=True)
+    name = models.CharField(max_length=20, unique=True)
     planet = models.ForeignKey(Planet, db_index=True, on_delete=models.CASCADE)
 
     class Meta:
@@ -25,14 +28,16 @@ class Question(models.Model):
         verbose_name_plural = 'Вопросы'
         verbose_name = 'Вопрос'
 
+    def __str__(self):
+        return self.text[:20] + ('...' if len(self.text) > 20 else '')
 
-class PadawanAnswer(models.Model):
-    answer = models.CharField(max_length=20, db_index=True)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
-    class Meta:
-        verbose_name_plural = 'Ответы падавана'
-        verbose_name = 'Ответ падавана'
+class Test(models.Model):
+    key = models.CharField(max_length=10, unique=True)
+    questions = models.ManyToManyField(Question, db_index=True)
+
+    def __str__(self):
+        return self.key
 
 
 class Padawan(models.Model):
@@ -40,9 +45,11 @@ class Padawan(models.Model):
     master = models.ForeignKey(Jedi,
                                verbose_name="Мастер",
                                blank=True,
+                               null=True,
                                on_delete=models.CASCADE)
+    planet = models.ForeignKey(Planet, db_index=True, on_delete=models.CASCADE)
     email = models.EmailField(unique=True)
-    answers = models.ManyToManyField(PadawanAnswer)
+    test = models.ForeignKey(Test, on_delete=models.CASCADE, default=None, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Падаван'
@@ -52,11 +59,14 @@ class Padawan(models.Model):
         return self.name
 
 
-class Test(models.Model):
-    key = models.CharField(max_length=10, unique=True)
-    questions = models.ManyToManyField(Question, db_index=True)
+class PadawanAnswer(models.Model):
+    answer = models.CharField(max_length=20, db_index=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    padawan = models.ForeignKey(Padawan, on_delete=models.CASCADE, default=None)
 
+    class Meta:
+        verbose_name_plural = 'Ответы падавана'
+        verbose_name = 'Ответ падавана'
 
-
-
-
+    def __str__(self):
+        return self.answer

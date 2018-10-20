@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Главная - система
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-6">
+        <form action="padawan_add" method="get">
+            <input type="submit" value="Padawan"
+                   name="Submit" id="frm1_submit"/>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <form action="jedi" method="get">
+            <input type="submit" value="Jedi"
+                   name="Submit" id="frm2_submit"/>
+        </form>
+    </div>
+{% endblock %}

@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# EMAIL_HOST = 'gmail.com'
+# EMAIL_HOST_USER = 'byskillcfpro@gmail.com'
+# EMAIL_HOST_PASSWORD = '221199gg'
+
 
 # Application definition
 
