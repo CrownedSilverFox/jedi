@@ -1,1 +1,1 @@
-web: gunicorn jedi.wsgi --log-file -
+web: gunicorn Work.wsgi --log-file -
