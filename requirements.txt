@@ -1,2 +1,5 @@
 django
 django-heroku
+gunicorn
+dj-database-url
+psycopg2
