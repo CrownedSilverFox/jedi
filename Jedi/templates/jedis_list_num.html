@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Список с количеством
+{% endblock %}
+
+{% block content %}
+    {% for jedi, num in jedis.items %}
+         <div class="row">
+            <div class="col">{{ jedi }}</div>
+            <div class="col">{{ num }}</div>
+         </div>
+    {% endfor %}
+{% endblock %}

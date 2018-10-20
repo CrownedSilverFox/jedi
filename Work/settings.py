@@ -27,9 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# EMAIL_HOST = 'gmail.com'
-# EMAIL_HOST_USER = 'byskillcfpro@gmail.com'
-# EMAIL_HOST_PASSWORD = '221199gg'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'byskillcfpro@gmail.com'
+EMAIL_HOST_PASSWORD = 'xtzrofdltwywzxyx'
+EMAIL_PORT = 465
+# EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True
 
 
 # Application definition

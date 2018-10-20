@@ -20,7 +20,7 @@ def padawan_auth(request):
         url = '{}?{}'.format(base_url, query_string)
         return redirect(url)
     else:
-        return render(request, 'padawan_form.html')
+        return render(request, 'padawan_form.html', {'planets': Planet.objects.all()})
 
 
 def home(request):
@@ -31,10 +31,14 @@ def test_view(request):
     if request.method == 'GET':
         test = Test.objects.all()
         test = test[random.randint(0, len(test) - 1)]
+        padawan = Padawan.objects.get(email=request.GET.get('padawanEmail'))
+        padawan.test = test
+        padawan.save()
         test_key = test.key
         test = list(test.questions.all())
         return render(request, 'test.html', {'test': test, 'test_key': test_key,
                                              'email': request.GET.get('padawanEmail')})
+
     else:
         padawan = Padawan.objects.get(email=request.POST.get('padawanEmail'))
         answers = []
@@ -49,7 +53,7 @@ def test_view(request):
 def jedi_candidate_sel(request):
     if request.method == 'GET':
         name = request.GET.get('name')
-        if len(Padawan.objects.filter(master__name=name)):
+        if len(Padawan.objects.filter(master__name=name)) == 3:
             return render(request, 'deny.html')
         planet = Jedi.objects.get(name=name).planet
         padawans = Padawan.objects.filter(planet=planet)
@@ -59,10 +63,15 @@ def jedi_candidate_sel(request):
                                                       'answers': answers})
     else:
         mail = request.POST.get('email')
+        padawan = Padawan.objects.get(email=mail)
+        padawan.master = Jedi.objects.get(name=request.GET.get('name'))
+        padawan.save()
         send_mail('Academy',
-                  "You've been accepted to be padawan of",
+                  "You've been accepted to be padawan of %s" % (request.GET.get('name')),
                   'byskillcfpro@gmail.com',
-                  mail)
+                  [mail],
+                  fail_silently=False)
+        return render(request, 'sent.html')
 
 
 def jedi_take(request):
@@ -76,3 +85,11 @@ def jedi_take(request):
         return redirect(url)
 
 
+def jedi_list_num(request):
+    jedis = Jedi.objects.all()
+    jedis = {jedi.name: 0 for jedi in jedis}
+    for padawan in Padawan.objects.all():
+        jedis[padawan.master.name] += 1
+    if int(request.GET.get('num')):
+        jedis = {jedi: num for jedi, num in jedis.items() if num > 1}
+    return render(request, 'jedis_list_num.html', {'jedis': jedis})
