@@ -26,9 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['pure-sands-36857.herokuapp.com', 'localhost']
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'byskillcfpro@gmail.com'
-EMAIL_HOST_PASSWORD = 'sbgifrvkyixkjwek'
+EMAIL_HOST = 'in-v3.mailjet.com'
+EMAIL_HOST_USER = 'd3f466fb9f6f9a1b7faed3e68aaefa01'
+EMAIL_HOST_PASSWORD = 'd6661d9e4dacbe80e022c62f01dd6db9'
 EMAIL_PORT = 465
 # EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
