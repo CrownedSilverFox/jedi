@@ -89,7 +89,8 @@ def jedi_list_num(request):
     jedis = Jedi.objects.all()
     jedis = {jedi.name: 0 for jedi in jedis}
     for padawan in Padawan.objects.all():
-        jedis[padawan.master.name] += 1
+        if padawan.master:
+            jedis[padawan.master.name] += 1
     if int(request.GET.get('num')):
         jedis = {jedi: num for jedi, num in jedis.items() if num > 1}
     return render(request, 'jedis_list_num.html', {'jedis': jedis})
