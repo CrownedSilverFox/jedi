@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '*)8vv4q8xbitvcrqs-sm)d6nn1ott$lxyi7#3jqi*8%$wkjkj1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['pure-sands-36857.herokuapp.com', 'localhost']
 
