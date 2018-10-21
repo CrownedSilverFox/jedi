@@ -130,6 +130,10 @@ os.makedirs(STATIC_ROOT, exist_ok=True)
 STATICFILES_DIRS = (
 os.path.join(BASE_DIR, 'static'),
 )
+
+STATIC_HOST = 'https://pure-sands-36857.herokuapp.com' if not DEBUG else ''
+STATIC_URL = STATIC_HOST + '/static/'
+
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
 
